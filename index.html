@@ -1,476 +1,292 @@
-index.html
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TOTM: Trooper of The Month</title>
-  <style>
-    :root{
-      --bg:#0b1220;
-      --card:#0f1a33;
-      --ink:#eaf0ff;
-      --muted:#b8c4e6;
-      --line:#22325f;
-      --gold:#d6b45a;
-      --accent:#6aa2ff;
-      --shadow: 0 18px 55px rgba(0,0,0,.45);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, #182b5a 0%, var(--bg) 55%) fixed;
-      color:var(--ink);
-      line-height:1.35;
-    }
-    a{color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
-    header{
-      display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-    .brand{
-      display:flex;gap:14px;align-items:center;
-    }
-    .badge{
-      width:54px;height:54px;border-radius:14px;
-      background: linear-gradient(145deg, rgba(214,180,90,.25), rgba(106,162,255,.12));
-      border:1px solid rgba(214,180,90,.35);
-      display:grid;place-items:center;
-      box-shadow: var(--shadow);
-    }
-    .badge span{font-weight:800;letter-spacing:.5px;color:var(--gold)}
-    h1{font-size:20px;margin:0}
-    .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-    button{
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color:var(--ink);
-      padding:10px 12px;border-radius:12px;
-      font-weight:650;
-      transition:.15s ease;
-    }
-    button:hover{transform:translateY(-1px);border-color: rgba(214,180,90,.35)}
-    button.primary{
-      background: linear-gradient(145deg, rgba(214,180,90,.22), rgba(214,180,90,.08));
-      border-color: rgba(214,180,90,.45);
-      color: var(--ink);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TOTM: Trooper of The Month</title>
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:16px;
-      align-items:start;
-    }
-    @media (max-width: 920px){
-      .grid{grid-template-columns: 1fr}
-    }
+<style>
+:root{
+  --bg:#0c1f3f;
+  --card:#132b57;
+  --ink:#ffffff;
+  --muted:#d7deee;
+  --gold:#c6a547;
+}
 
-    .card{
-      background: rgba(15,26,51,.75);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:18px;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .card .hd{
-      padding:14px 16px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      background: linear-gradient(180deg, rgba(255,255,255,.04), transparent);
-    }
-    .card .hd strong{letter-spacing:.3px}
-    .card .bd{padding:16px}
-    .hint{color:var(--muted);font-size:12px}
+*{box-sizing:border-box}
 
-    form{display:grid;gap:12px}
-    .row{display:grid;gap:10px;grid-template-columns: 1fr 1fr}
-    @media (max-width: 520px){.row{grid-template-columns:1fr}}
-    label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
-    input, textarea{
-      width:100%;
-      padding:10px 11px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.20);
-      color:var(--ink);
-      outline:none;
-    }
-    textarea{min-height:110px;resize:vertical}
-    .pill{
-      display:inline-flex;gap:8px;align-items:center;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(214,180,90,.40);
-      background: rgba(214,180,90,.10);
-      color:var(--ink);
-      font-size:12px;
-      white-space:nowrap;
-    }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: linear-gradient(180deg, #0c1f3f 0%, #08152d 100%);
+  color:var(--ink);
+}
 
-    /* Certificate */
-    .cert-wrap{padding:18px}
-    .certificate{
-      background: #0a1022;
-      border: 2px solid rgba(214,180,90,.65);
-      border-radius: 18px;
-      padding: 22px;
-      position: relative;
-      overflow:hidden;
-    }
-    .certificate:before{
-      content:"";
-      position:absolute;inset:-2px;
-      background: radial-gradient(900px 500px at 0% 0%, rgba(214,180,90,.20), transparent 55%),
-                  radial-gradient(900px 500px at 100% 0%, rgba(106,162,255,.16), transparent 55%);
-      pointer-events:none;
-    }
-    .certificate > *{position:relative}
-    .cert-top{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-    }
-    .seal{
-      width:86px;height:86px;border-radius:999px;
-      border:2px solid rgba(214,180,90,.75);
-      background: radial-gradient(circle at 30% 30%, rgba(214,180,90,.35), rgba(0,0,0,.15));
-      display:grid;place-items:center;
-      box-shadow: 0 14px 35px rgba(0,0,0,.35);
-    }
-    .seal b{color:var(--gold);letter-spacing:1px}
-    .cert-title{
-      flex:1;
-      min-width:240px;
-      text-align:center;
-    }
-    .cert-title h2{
-      margin:0;
-      font-size:26px;
-      letter-spacing:1px;
-      text-transform:uppercase;
-    }
-    .cert-title p{margin:6px 0 0;color:var(--muted);font-size:13px}
-    .divider{
-      height:1px;background: rgba(255,255,255,.12);
-      margin:16px 0;
-    }
-    .big-name{
-      text-align:center;
-      margin: 8px 0 4px;
-      font-size:30px;
-      font-weight:850;
-      letter-spacing:.6px;
-      color: #ffffff;
-    }
-    .meta{
-      display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-      margin-bottom:12px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .block{
-      background: rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      padding:12px 12px;
-      margin:10px 0;
-    }
-    .block h3{margin:0 0 8px;font-size:14px;letter-spacing:.3px;color:var(--ink)}
-    .block p{margin:0;color:var(--muted);white-space:pre-wrap}
-    .highlights{
-      display:grid;gap:10px;grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: 760px){.highlights{grid-template-columns:1fr}}
-    .hl{
-      border:1px dashed rgba(214,180,90,.45);
-      background: rgba(214,180,90,.06);
-      border-radius:14px;
-      padding:12px;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .footer{
-      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      margin-top:14px;color:var(--muted);font-size:13px;
-    }
-    .sig{
-      min-width:240px;
-      border-top:1px solid rgba(255,255,255,.14);
-      padding-top:8px;
-    }
+.wrap{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
 
-    /* Print */
-    @media print{
-      body{background:#fff;color:#000}
-      .wrap{padding:0}
-      header, .card.form-card{display:none !important}
-      .card{box-shadow:none;border:none}
-      .certificate{
-        border:2px solid #b08a2e;
-        background:#fff;
-      }
-      .certificate:before{display:none}
-      .block, .hl{background:#fff;border-color:#999}
-      .big-name{color:#000}
-      .meta, .block p, .footer{color:#222}
-      .seal{border-color:#b08a2e}
-      .seal b{color:#b08a2e}
-    }
-  </style>
+header{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.badge{
+  width:54px;height:54px;border-radius:14px;
+  background: linear-gradient(145deg, rgba(198,165,71,.22), rgba(255,255,255,.06));
+  border:1px solid rgba(198,165,71,.55);
+  display:grid;place-items:center;
+}
+.badge span{font-weight:900;color:var(--gold)}
+
+.top-stripe{
+  height:10px;
+  border-radius:999px;
+  background: linear-gradient(90deg, rgba(198,165,71,.15), var(--gold), rgba(198,165,71,.15));
+  margin:15px 0 20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+@media(max-width:920px){.grid{grid-template-columns:1fr}}
+
+.card{
+  background: rgba(19,43,87,.8);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:18px;
+  overflow:hidden;
+}
+
+.card .hd{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.10);}
+.card .bd{padding:16px}
+
+form{display:grid;gap:12px}
+.row{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+
+label{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+input, textarea{
+  width:100%;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.15);
+  background: rgba(0,0,0,.2);
+  color:white;
+}
+textarea{min-height:110px}
+
+button{
+  cursor:pointer;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(198,165,71,.65);
+  background: rgba(198,165,71,.15);
+  color:white;
+  font-weight:600;
+  margin-left:5px;
+}
+
+.certificate{
+  background:#0a1022;
+  border:2px solid var(--gold);
+  border-radius:18px;
+  padding:22px;
+}
+
+.cert-title h2{
+  text-align:center;
+  font-family:Georgia,serif;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.big-name{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  font-family:Georgia,serif;
+  margin:10px 0;
+}
+
+.block{
+  background: rgba(255,255,255,.05);
+  padding:12px;
+  border-radius:12px;
+  margin:10px 0;
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  margin-top:15px;
+  font-size:13px;
+}
+
+@media print{
+  body{background:white;color:black}
+  .card.form-card, .top-stripe, header{display:none}
+  .certificate{background:white;border:2px solid #b08a2e}
+}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="badge" aria-hidden="true"><span>TOTM</span></div>
-        <div>
-          <h1>TROOPER OF THE MONTH</h1>
-          <div class="sub">Fill in the form → preview the certificate → print or save as PDF</div>
-        </div>
-      </div>
-      <div class="actions">
-        <button class="primary" id="btnPrint" type="button">Print / Save PDF</button>
-        <button id="btnReset" type="button">Reset</button>
-      </div>
-    </header>
+<div class="wrap">
 
-    <div class="grid">
-      <!-- FORM -->
-      <section class="card form-card">
-        <div class="hd">
-          <strong>Award Details</strong>
-          <span class="pill">Live Preview</span>
-        </div>
-        <div class="bd">
-          <form id="totmForm" autocomplete="off">
-            <div class="row">
-              <label>
-                Unit / Department
-                <input name="unit" placeholder="e.g., Highway Patrol – District 3" />
-              </label>
-              <label>
-                Month
-                <input name="month" placeholder="e.g., February" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Year
-                <input name="year" placeholder="e.g., 2026" />
-              </label>
-              <label>
-                Date Presented
-                <input name="datePresented" placeholder="e.g., 2026-02-11" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Trooper Name
-                <input name="name" placeholder="e.g., Jordan A. Smith" />
-              </label>
-              <label>
-                Rank / Badge #
-                <input name="rankBadge" placeholder="e.g., Trooper / #1842" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Station / Division
-                <input name="division" placeholder="e.g., North Precinct" />
-              </label>
-              <label>
-                Supervisor
-                <input name="supervisor" placeholder="e.g., Sgt. Taylor" />
-              </label>
-            </div>
-
-            <label>
-              Reason for Recognition (Paragraph)
-              <textarea name="reason" placeholder="Write a short paragraph explaining why they earned Trooper of the Month..."></textarea>
-            </label>
-
-            <div class="row">
-              <label>
-                Key Achievement #1
-                <input name="a1" placeholder="e.g., Led multi-agency traffic safety operation" />
-              </label>
-              <label>
-                Key Achievement #2
-                <input name="a2" placeholder="e.g., Assisted in emergency response during storm" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Key Achievement #3
-                <input name="a3" placeholder="e.g., Community outreach event coordination" />
-              </label>
-              <label>
-                Key Achievement #4
-                <input name="a4" placeholder="e.g., Mentored new recruits" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Citations / Arrests
-                <input name="stats1" placeholder="e.g., 24 / 6" />
-              </label>
-              <label>
-                Community Engagement
-                <input name="stats2" placeholder="e.g., 3 events" />
-              </label>
-            </div>
-
-            <div class="row">
-              <label>
-                Special Assignments Completed
-                <input name="stats3" placeholder="e.g., DUI Task Force (2 shifts)" />
-              </label>
-              <label>
-                Other Notable Contributions
-                <input name="stats4" placeholder="e.g., Trained CPR for unit" />
-              </label>
-            </div>
-
-            <label>
-              Leadership Comments
-              <textarea name="comments" placeholder="Optional leadership note..."></textarea>
-            </label>
-
-            <div class="row">
-              <label>
-                Award Presented By (Name & Title)
-                <input name="presentedBy" placeholder="e.g., Capt. Avery Johnson" />
-              </label>
-              <label>
-                Signature Line Text
-                <input name="signature" placeholder="e.g., Commanding Officer" />
-              </label>
-            </div>
-          </form>
-          <div class="hint">Tip: Use “Print / Save PDF” to export a clean certificate.</div>
-        </div>
-      </section>
-
-      <!-- CERTIFICATE -->
-      <section class="card">
-        <div class="hd">
-          <strong>Certificate Preview</strong>
-          <span class="pill">Printable</span>
-        </div>
-        <div class="cert-wrap">
-          <div class="certificate" id="certificate">
-            <div class="cert-top">
-              <div class="seal" aria-hidden="true"><b>TOTM</b></div>
-              <div class="cert-title">
-                <h2>Trooper of the Month</h2>
-                <p id="certUnit">Unit/Department: —</p>
-              </div>
-              <div class="seal" style="opacity:.85" aria-hidden="true"><b>🏆</b></div>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="meta">
-              <span class="pill" id="certMonthYear">Month/Year: —</span>
-              <span class="pill" id="certDivision">Station/Division: —</span>
-              <span class="pill" id="certSupervisor">Supervisor: —</span>
-            </div>
-
-            <div class="big-name" id="certName">—</div>
-            <div class="meta">
-              <span id="certRankBadge">Rank/Badge: —</span>
-            </div>
-
-            <div class="block">
-              <h3>Reason for Recognition</h3>
-              <p id="certReason">—</p>
-            </div>
-
-            <div class="highlights">
-              <div class="hl" id="certA1">• —</div>
-              <div class="hl" id="certA2">• —</div>
-              <div class="hl" id="certA3">• —</div>
-              <div class="hl" id="certA4">• —</div>
-            </div>
-
-            <div class="block">
-              <h3>Performance Highlights</h3>
-              <p id="certStats">Citations/Arrests: —  |  Community Engagement: —  |  Special Assignments: —  |  Other: —</p>
-            </div>
-
-            <div class="block">
-              <h3>Leadership Comments</h3>
-              <p id="certComments">—</p>
-            </div>
-
-            <div class="footer">
-              <div>
-                <div><b>Presented By:</b> <span id="certPresentedBy">—</span></div>
-                <div><b>Date Presented:</b> <span id="certDatePresented">—</span></div>
-              </div>
-              <div class="sig">
-                <div id="certSignature">Signature</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+<header>
+  <div style="display:flex;align-items:center;gap:14px">
+ <div class="badge">
+  <img src="chp-logo.png" alt="California Highway Patrol Logo" style="height:40px;">
+</div>
+      <h1>TROOPER OF THE MONTH</h1>
     </div>
   </div>
+  <div>
+    <button onclick="window.print()">Print / Save PDF</button>
+    <button onclick="sendEmail()">Submit via Email</button>
+  </div>
+</header>
 
-  <script>
-    const form = document.getElementById('totmForm');
+<div class="top-stripe"></div>
 
-    const el = (id) => document.getElementById(id);
-    const safe = (v) => (v && String(v).trim().length ? String(v).trim() : "—");
+<div class="grid">
 
-    function update(){
-      const data = Object.fromEntries(new FormData(form).entries());
+<!-- FORM -->
+<section class="card form-card">
+<div class="hd"><strong>Award Details</strong></div>
+<div class="bd">
 
-      el('certUnit').textContent = "Unit/Department: " + safe(data.unit);
-      el('certMonthYear').textContent = "Month/Year: " + safe(data.month) + " " + safe(data.year);
-      el('certName').textContent = safe(data.name);
-      el('certRankBadge').textContent = "Rank/Badge: " + safe(data.rankBadge);
-      el('certDivision').textContent = "Station/Division: " + safe(data.division);
-      el('certSupervisor').textContent = "Supervisor: " + safe(data.supervisor);
+<form id="totmForm">
 
-      el('certReason').textContent = safe(data.reason);
+<div class="row">
+<label>Month<input name="month"></label>
+<label>Year<input name="year"></label>
+</div>
 
-      el('certA1').textContent = "• " + safe(data.a1);
-      el('certA2').textContent = "• " + safe(data.a2);
-      el('certA3').textContent = "• " + safe(data.a3);
-      el('certA4').textContent = "• " + safe(data.a4);
+<div class="row">
+<label>Trooper Name<input name="name"></label>
+<label>Rank / Badge #<input name="rankBadge"></label>
+</div>
 
-      el('certStats').textContent =
-        "Citations/Arrests: " + safe(data.stats1) +
-        "  |  Community Engagement: " + safe(data.stats2) +
-        "  |  Special Assignments: " + safe(data.stats3) +
-        "  |  Other: " + safe(data.stats4);
+<label>
+Reason for Recognition
+<textarea name="reason"></textarea>
+</label>
 
-      el('certComments').textContent = safe(data.comments);
+<div class="row">
+<label>Achievement #1<input name="a1"></label>
+<label>Achievement #2<input name="a2"></label>
+</div>
 
-      el('certPresentedBy').textContent = safe(data.presentedBy);
-      el('certDatePresented').textContent = safe(data.datePresented);
-      el('certSignature').textContent = safe(data.signature);
-    }
+<div class="row">
+<label>Achievement #3<input name="a3"></label>
+<label>Achievement #4<input name="a4"></label>
+</div>
 
-    form.addEventListener('input', update);
-    update();
+<label>
+Trooper's Comment
+<textarea name="trooperComment"></textarea>
+</label>
 
-    document.getElementById('btnPrint').addEventListener('click', () => window.print());
-    document.getElementById('btnReset').addEventListener('click', () => {
-      form.reset();
-      update();
-    });
-  </script>
+<div class="row">
+<label>Presented By<input name="presentedBy"></label>
+<label>Date Presented<input name="datePresented"></label>
+</div>
+
+</form>
+
+</div>
+</section>
+
+<!-- CERTIFICATE -->
+<section class="card">
+<div class="hd"><strong>Certificate Preview</strong></div>
+<div class="bd">
+
+<div class="certificate">
+
+<div class="cert-title">
+<h2>Trooper of the Month</h2>
+<p id="certMonthYear">Month/Year: —</p>
+</div>
+
+<div class="big-name" id="certName">—</div>
+<p style="text-align:center" id="certRankBadge">Rank/Badge: —</p>
+
+<div class="block">
+<strong>Reason for Recognition</strong>
+<p id="certReason">—</p>
+</div>
+
+<div class="block">
+<strong>Key Achievements</strong>
+<p id="certAchievements">—</p>
+</div>
+
+<div class="block">
+<strong>Trooper's Comment</strong>
+<p id="certTrooperComment">—</p>
+</div>
+
+<div class="footer">
+<div>
+Presented By: <span id="certPresentedBy">—</span><br>
+Date: <span id="certDatePresented">—</span>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+</div>
+</div>
+
+<script>
+const form = document.getElementById('totmForm');
+const el = id => document.getElementById(id);
+const safe = v => v && v.trim() ? v : "—";
+
+function update(){
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  el('certMonthYear').textContent = "Month/Year: " + safe(data.month) + " " + safe(data.year);
+  el('certName').textContent = safe(data.name);
+  el('certRankBadge').textContent = "Rank/Badge: " + safe(data.rankBadge);
+  el('certReason').textContent = safe(data.reason);
+
+  el('certAchievements').textContent =
+    [data.a1, data.a2, data.a3, data.a4]
+    .filter(x => x && x.trim())
+    .map(x => "• " + x)
+    .join("\n") || "—";
+
+  el('certTrooperComment').textContent = safe(data.trooperComment);
+  el('certPresentedBy').textContent = safe(data.presentedBy);
+  el('certDatePresented').textContent = safe(data.datePresented);
+}
+
+function sendEmail(){
+  const data = Object.fromEntries(new FormData(form).entries());
+  const subject = encodeURIComponent("Trooper of the Month Submission");
+  const body = encodeURIComponent(
+    "Trooper: " + safe(data.name) + "\n" +
+    "Month/Year: " + safe(data.month) + " " + safe(data.year) + "\n\n" +
+    "Please find the attached PDF certificate."
+  );
+
+  window.location.href = `mailto:lemoon2116@gmail.com?subject=${subject}&body=${body}`;
+}
+
+form.addEventListener('input', update);
+update();
+</script>
+
 </body>
 </html>
